@@ -4,7 +4,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+
+import java.util.EmptyStackException;
 
 
 public class InteraccionConElementos extends Activity {
@@ -15,13 +21,27 @@ public class InteraccionConElementos extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interaccion_con_elementos);
 
-        RadioGroup radio = (RadioGroup)findViewById(R.id.RadioGroup01);
 
-        if (R.id.rdsr == radio.getCheckedRadioButtonId()) {//RECOGE EL VALOR DE ID QUE ESTA CHECKEADO EN EL RADIOBUTTON
-            //trato = getResources().getString(R.id.);
-        }else{
 
-        }
+        final Button hola = (Button)findViewById(R.id.hello);
+
+        hola.setOnClickListener(new View.OnClickListener() {
+        RadioGroup radio = (RadioGroup) findViewById(R.id.RadioGroup01);
+
+            @Override
+            public void onClick(View v) {
+                if (R.id.rdsr == radio.getCheckedRadioButtonId()) {//RECOGE EL VALOR DE ID QUE ESTA CHECKEADO EN EL RADIOBUTTON
+                    trato = getResources().getString(R.string.ssr);
+                }else{
+                    trato = getResources().getString(R.string.ssra);
+                }
+
+                TextView saludoFinal = (TextView)findViewById(R.id.salida);
+                EditText entrada = (EditText)findViewById(R.id.txtNombre);
+
+                saludoFinal.setText(hola.getText()+" "+trato+" "+entrada.getText());
+            }
+        });
     }
 
 
