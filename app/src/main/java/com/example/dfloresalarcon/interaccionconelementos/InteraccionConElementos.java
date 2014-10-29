@@ -1,16 +1,21 @@
 package com.example.dfloresalarcon.interaccionconelementos;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.EmptyStackException;
+import java.util.Timer;
 
 
 public class InteraccionConElementos extends Activity {
@@ -21,12 +26,11 @@ public class InteraccionConElementos extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interaccion_con_elementos);
 
-
-
         final Button hola = (Button)findViewById(R.id.hello);
 
         hola.setOnClickListener(new View.OnClickListener() {
-        RadioGroup radio = (RadioGroup) findViewById(R.id.RadioGroup01);
+
+            RadioGroup radio = (RadioGroup) findViewById(R.id.RadioGroup01);
 
             @Override
             public void onClick(View v) {
@@ -39,11 +43,29 @@ public class InteraccionConElementos extends Activity {
                 TextView saludoFinal = (TextView)findViewById(R.id.salida);
                 EditText entrada = (EditText)findViewById(R.id.txtNombre);
 
-                saludoFinal.setText(hola.getText()+" "+trato+" "+entrada.getText());
+                if (entrada.getText().toString().trim().equals(""))
+                {
+
+                }
+                else{
+
+                    saludoFinal.setText(hola.getText()+" "+trato+" "+entrada.getText());
+
+                    CheckBox timeCheckBox = (CheckBox)findViewById(R.id.checkBox);
+
+
+                    if (timeCheckBox.isChecked()) {
+                        DatePicker date = (DatePicker) findViewById(R.id.datePicker);
+                        String dateToShow = date.getDayOfMonth() + "/" + (date.getMonth() + 1) + "/" + date.getYear();
+                        TimePicker time = (TimePicker) findViewById(R.id.timePicker);
+                        dateToShow += " " + time.getCurrentHour() + ":" + time.getCurrentMinute();
+                        CharSequence s = saludoFinal.getText();
+                        saludoFinal.setText(s + "\n" + dateToShow);
+                    }
+                }
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
